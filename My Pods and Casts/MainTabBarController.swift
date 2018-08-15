@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
         
         let favoritesNavController = generateNavigationController(with: FavoritesController(), title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
         
-        let searchBarNavController = generateNavigationController(with: SearchBarController(), title: "Search", image: #imageLiteral(resourceName: "search"))
+        let searchBarNavController = generateNavigationController(with: PodcastsSearchController(), title: "Search", image: #imageLiteral(resourceName: "search"))
         
         let downLoadsNavController = generateNavigationController(with: downloadsController(), title: "Downloads", image: #imageLiteral(resourceName: "downloads"))
         

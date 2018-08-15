@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		BDB7C66B2124985900820726 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C66A2124985900820726 /* AppDelegate.swift */; };
-		BDB7C66D2124985900820726 /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C66C2124985900820726 /* SearchBarController.swift */; };
+		BDB7C66D2124985900820726 /* PodcastsSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C66C2124985900820726 /* PodcastsSearchController.swift */; };
 		BDB7C6702124985900820726 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB7C66E2124985900820726 /* Main.storyboard */; };
 		BDB7C6722124985D00820726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDB7C6712124985D00820726 /* Assets.xcassets */; };
 		BDB7C6752124985D00820726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB7C6732124985D00820726 /* LaunchScreen.storyboard */; };
 		BDB7C67D21249AF700820726 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C67C21249AF700820726 /* MainTabBarController.swift */; };
 		BDB7C67F21249C1000820726 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C67E21249C1000820726 /* FavoritesController.swift */; };
 		BDB7C68121249F5000820726 /* downloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C68021249F5000820726 /* downloadsController.swift */; };
+		BDB7C6852124A87A00820726 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C6842124A87A00820726 /* Podcast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BDB7C6672124985900820726 /* My Pods and Casts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Pods and Casts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB7C66A2124985900820726 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BDB7C66C2124985900820726 /* SearchBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarController.swift; sourceTree = "<group>"; };
+		BDB7C66C2124985900820726 /* PodcastsSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastsSearchController.swift; sourceTree = "<group>"; };
 		BDB7C66F2124985900820726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BDB7C6712124985D00820726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDB7C6742124985D00820726 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -28,6 +29,7 @@
 		BDB7C67C21249AF700820726 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BDB7C67E21249C1000820726 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		BDB7C68021249F5000820726 /* downloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadsController.swift; sourceTree = "<group>"; };
+		BDB7C6842124A87A00820726 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +62,9 @@
 		BDB7C6692124985900820726 /* My Pods and Casts */ = {
 			isa = PBXGroup;
 			children = (
+				BDB7C6832124A86500820726 /* Model */,
+				BDB7C6822124A79D00820726 /* Controllers */,
 				BDB7C66A2124985900820726 /* AppDelegate.swift */,
-				BDB7C67E21249C1000820726 /* FavoritesController.swift */,
-				BDB7C66C2124985900820726 /* SearchBarController.swift */,
-				BDB7C68021249F5000820726 /* downloadsController.swift */,
 				BDB7C67C21249AF700820726 /* MainTabBarController.swift */,
 				BDB7C66E2124985900820726 /* Main.storyboard */,
 				BDB7C6712124985D00820726 /* Assets.xcassets */,
@@ -71,6 +72,24 @@
 				BDB7C6762124985D00820726 /* Info.plist */,
 			);
 			path = "My Pods and Casts";
+			sourceTree = "<group>";
+		};
+		BDB7C6822124A79D00820726 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BDB7C67E21249C1000820726 /* FavoritesController.swift */,
+				BDB7C66C2124985900820726 /* PodcastsSearchController.swift */,
+				BDB7C68021249F5000820726 /* downloadsController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BDB7C6832124A86500820726 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BDB7C6842124A87A00820726 /* Podcast.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,8 +163,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDB7C66D2124985900820726 /* SearchBarController.swift in Sources */,
+				BDB7C66D2124985900820726 /* PodcastsSearchController.swift in Sources */,
 				BDB7C68121249F5000820726 /* downloadsController.swift in Sources */,
+				BDB7C6852124A87A00820726 /* Podcast.swift in Sources */,
 				BDB7C66B2124985900820726 /* AppDelegate.swift in Sources */,
 				BDB7C67D21249AF700820726 /* MainTabBarController.swift in Sources */,
 				BDB7C67F21249C1000820726 /* FavoritesController.swift in Sources */,
