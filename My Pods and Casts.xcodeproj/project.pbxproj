@@ -14,6 +14,7 @@
 		BDB7C6752124985D00820726 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB7C6732124985D00820726 /* LaunchScreen.storyboard */; };
 		BDB7C67D21249AF700820726 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C67C21249AF700820726 /* MainTabBarController.swift */; };
 		BDB7C67F21249C1000820726 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C67E21249C1000820726 /* FavoritesController.swift */; };
+		BDB7C68121249F5000820726 /* downloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C68021249F5000820726 /* downloadsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BDB7C6762124985D00820726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDB7C67C21249AF700820726 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BDB7C67E21249C1000820726 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		BDB7C68021249F5000820726 /* downloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				BDB7C66A2124985900820726 /* AppDelegate.swift */,
 				BDB7C67E21249C1000820726 /* FavoritesController.swift */,
 				BDB7C66C2124985900820726 /* SearchBarController.swift */,
+				BDB7C68021249F5000820726 /* downloadsController.swift */,
 				BDB7C67C21249AF700820726 /* MainTabBarController.swift */,
 				BDB7C66E2124985900820726 /* Main.storyboard */,
 				BDB7C6712124985D00820726 /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB7C66D2124985900820726 /* SearchBarController.swift in Sources */,
+				BDB7C68121249F5000820726 /* downloadsController.swift in Sources */,
 				BDB7C66B2124985900820726 /* AppDelegate.swift in Sources */,
 				BDB7C67D21249AF700820726 /* MainTabBarController.swift in Sources */,
 				BDB7C67F21249C1000820726 /* FavoritesController.swift in Sources */,

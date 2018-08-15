@@ -1,5 +1,5 @@
 //
-//  FavoritesController.swift
+//  downloadsController.swift
 //  My Pods and Casts
 //
 //  Created by Viswa Kodela on 8/15/18.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class FavoritesController: UIViewController {
+class downloadsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
-        
+        view.backgroundColor = .green
     }
     
 }
