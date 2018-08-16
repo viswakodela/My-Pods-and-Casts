@@ -17,6 +17,8 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = .purple
         tabBar.unselectedItemTintColor = .gray
         
+        tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        
         
         
         let favoritesNavController = generateNavigationController(with: FavoritesController(), title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
