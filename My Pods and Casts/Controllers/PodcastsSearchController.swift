@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Alamofire
 
 class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
     
     
-    let podcast = [Podcast(name:"Viswa", artistName: "Viswajith Kodela"),
-                   Podcast(name:"Mounika", artistName: "Mounika Kodela")]
+    var podcast = [Podcast(trackName:"Viswa", artistName: "Viswajith Kodela"),
+                   Podcast(trackName:"Mounika", artistName: "Mounika Kodela")]
     
     let cellid = "cellId"
     
@@ -31,13 +32,39 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
         navigationItem.hidesSearchBarWhenScrolling = false
         
         searchController.searchBar.delegate = self
-//        searchController.dimsBackgroundDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchBar.text ?? "")
+        
+        let url = "https://itunes.apple.com/search"
+        let paramenters = ["term": searchText, "media": "podcast"]
+        
+        Alamofire.request(url, method: .get, parameters: paramenters, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
+            if dataResponse.error != nil{
+                print("Failed to connect to Podcasts")
+            }
+            guard let data = dataResponse.data else {return}
+            
+            do{
+                let searchResults = try JSONDecoder().decode(SearchResults.self, from: data)
+                self.podcast = searchResults.results
+                self.tableView.reloadData()
+            }catch{
+                print(error)
+            }
+        }
     }
+    
+    struct SearchResults: Decodable {
+        let resultCount: Int
+        let results: [Podcast]
+    }
+    
 }
+
+
 
 //MARK:- UITableViewController functions
 
@@ -53,7 +80,7 @@ extension PodcastsSearchController {
         
         let podcast = self.podcast[indexPath.row]
         cell.textLabel?.numberOfLines = -1
-        cell.textLabel?.text = "\(podcast.name)\n\(podcast.artistName)"
+        cell.textLabel?.text = "\(podcast.trackName ?? "")\n\(podcast.artistName ?? "")"
         cell.imageView?.image = #imageLiteral(resourceName: "appicon")
         
         return cell
