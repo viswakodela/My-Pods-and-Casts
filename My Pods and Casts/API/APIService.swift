@@ -24,8 +24,8 @@ class APIService {
                 print("Failed to connect to Podcasts:", dataResponse.error ?? "")
             }
             guard let data = dataResponse.data else {return}
-            let dummy = String(data: data, encoding: .utf8)
-            print(dummy ?? "")
+//            let dummy = String(data: data, encoding: .utf8)
+//            print(dummy ?? "")
             
             do{
                 let searchResults = try JSONDecoder().decode(SearchResults.self, from: data)

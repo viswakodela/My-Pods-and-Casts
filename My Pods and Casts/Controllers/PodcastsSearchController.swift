@@ -22,14 +22,16 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellid)
-        
-        
-        setUpsearchBar()
+        setUpsearchBarAndNavigationsItems()
     }
     
-    fileprivate func setUpsearchBar(){
+    fileprivate func setUpsearchBarAndNavigationsItems(){
+        
+        self.definesPresentationContext = true
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        tableView.tableFooterView = UIView()
+        
         
         let nib = UINib(nibName: "PodcastsCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellId)
@@ -54,12 +56,24 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 
 extension PodcastsSearchController {
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Please enter the Search Term"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textAlignment = .center
+        label.textColor = .purple
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.podcast.count > 0 ? 0 : 250
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcast.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PodcastsCell
         
@@ -72,11 +86,17 @@ extension PodcastsSearchController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let episodesController = EpisodesController()
+        
+        navigationController?.pushViewController(episodesController, animated: true)
+        
+        
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
-    
-    
-    
 }
 
