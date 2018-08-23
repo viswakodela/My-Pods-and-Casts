@@ -32,6 +32,7 @@ class PodcastsCell: UITableViewCell {
 //                    self.podCastsImageView.image = UIImage(data: data)
 //                }
 //            }.resume()
+            podCastsImageView.contentMode = .scaleAspectFill
             podCastsImageView.sd_setImage(with: url, completed: nil)
         }
     }

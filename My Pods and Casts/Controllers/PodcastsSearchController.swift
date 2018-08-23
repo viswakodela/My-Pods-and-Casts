@@ -77,13 +77,8 @@ extension PodcastsSearchController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PodcastsCell
-        
         let podcast = self.podcast[indexPath.row]
         cell.podcast = podcast
-        
-//        cell.textLabel?.numberOfLines = -1
-//        cell.textLabel?.text = "\(podcast.trackName ?? "")\n\(podcast.artistName ?? "")"
-//        cell.imageView?.image = #imageLiteral(resourceName: "appicon")
         return cell
     }
     

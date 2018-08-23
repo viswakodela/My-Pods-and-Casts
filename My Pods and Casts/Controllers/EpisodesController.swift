@@ -21,47 +21,23 @@ class EpisodesController: UITableViewController {
             fetchEpisodes()
         }
     }
-    
+
+//MARK:- Fetching Episodes Function
     fileprivate func fetchEpisodes() {
-        print(self.selectedPodcast?.feedUrl ?? "")
-        guard let feedUrl = URL(string: selectedPodcast?.feedUrl ?? "") else {return}
-        let parser = FeedParser(URL: feedUrl)
-        parser?.parseAsync(result: { (result) in
-            print(result.isSuccess)
-            
-            switch result {
-                
-            case let .rss(feed):
-                var episodes = [Episode]()
-                feed.items?.forEach({ (feeditem) in
-//                    print(feeditem.title ?? "")
-                    let episode = Episode(feedItem: feeditem)
-                    episodes.append(episode)
-                })
-                self.episodes = episodes
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                break
-                
-            case let .failure(error):
-                print("Failed to parse feed:", error)
-                break
-                
-            default: print("Found a feed")
+        
+        guard let feedUrl = self.selectedPodcast?.feedUrl else {return}
+        APIService.shared.fetchEpisodes(feedUrl: feedUrl) { (episodes) in
+            self.episodes = episodes
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-            
-        })
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUptableView()
     }
-    
-    
-    
     
 //MARK:- Setup tableView
     func setUptableView() {
@@ -80,17 +56,12 @@ extension EpisodesController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! EpisodeCellTableViewCell
-        
         let episode = episodes[indexPath.row]
         cell.episode = episode
-//        let episode = self.episodes[indexPath.row]
-//        cell.textLabel?.numberOfLines = 0
-//        cell.textLabel?.text = episode.title + "\n" + episode.description
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
-    
 }
