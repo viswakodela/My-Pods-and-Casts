@@ -31,6 +31,7 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .onDrag
         
         
         let nib = UINib(nibName: "PodcastsCell", bundle: nil)
@@ -89,7 +90,8 @@ extension PodcastsSearchController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let episodesController = EpisodesController()
-        
+        let selectedPodcast = podcast[indexPath.row]
+        episodesController.selectedPodcast = selectedPodcast
         navigationController?.pushViewController(episodesController, animated: true)
         
         
