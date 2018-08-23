@@ -11,11 +11,7 @@ import FeedKit
 
 class EpisodesController: UITableViewController {
     
-    fileprivate let cellId = "cellId"
-    
-    struct Episode {
-        let title: String
-    }
+    fileprivate let cellId = "episodeCellId"
     
     var episodes = [Episode]()
     
@@ -36,11 +32,10 @@ class EpisodesController: UITableViewController {
             switch result {
                 
             case let .rss(feed):
-                
                 var episodes = [Episode]()
                 feed.items?.forEach({ (feeditem) in
 //                    print(feeditem.title ?? "")
-                    let episode = Episode(title: feeditem.title ?? "")
+                    let episode = Episode(feedItem: feeditem)
                     episodes.append(episode)
                 })
                 self.episodes = episodes
@@ -70,22 +65,32 @@ class EpisodesController: UITableViewController {
     
 //MARK:- Setup tableView
     func setUptableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        let nib = UINib(nibName: "EpisodeCellTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "episodeCellId")
+        tableView.tableFooterView = UIView()
     }
 }
 
 //MARK:- TableView Methods
 extension EpisodesController {
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return episodes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        let episode = self.episodes[indexPath.row]
-        cell.textLabel?.text = episode.title
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! EpisodeCellTableViewCell
+        
+        let episode = episodes[indexPath.row]
+        cell.episode = episode
+//        let episode = self.episodes[indexPath.row]
+//        cell.textLabel?.numberOfLines = 0
+//        cell.textLabel?.text = episode.title + "\n" + episode.description
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
     
 }
