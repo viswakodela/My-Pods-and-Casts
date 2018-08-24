@@ -23,8 +23,8 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="1yV-xY-BaV">
                         <rect key="frame" x="26" y="51.5" width="100" height="100"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="100" id="2y2-dX-yA8"/>
-                            <constraint firstAttribute="width" constant="100" id="Sca-vV-q0O"/>
+                            <constraint firstAttribute="height" constant="100" id="8la-Q1-EVM"/>
+                            <constraint firstAttribute="width" constant="100" id="Hum-vn-Cxe"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1G9-ZM-nZi">
@@ -52,11 +52,11 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="1G9-ZM-nZi" secondAttribute="trailing" id="1NO-KO-R6D"/>
-                    <constraint firstItem="1yV-xY-BaV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Jyd-q1-9MN"/>
-                    <constraint firstItem="1yV-xY-BaV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="UMp-lC-V1q"/>
-                    <constraint firstItem="1G9-ZM-nZi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cJ5-pv-q3t"/>
-                    <constraint firstItem="1G9-ZM-nZi" firstAttribute="leading" secondItem="1yV-xY-BaV" secondAttribute="trailing" constant="10" id="tXc-qr-kiV"/>
+                    <constraint firstItem="1yV-xY-BaV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="51d-wZ-E6a"/>
+                    <constraint firstItem="1yV-xY-BaV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IbP-1g-ksn"/>
+                    <constraint firstItem="1G9-ZM-nZi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Noe-bk-Hzm"/>
+                    <constraint firstItem="1G9-ZM-nZi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="SGS-go-F7A"/>
+                    <constraint firstItem="1G9-ZM-nZi" firstAttribute="leading" secondItem="1yV-xY-BaV" secondAttribute="trailing" constant="10" id="oQp-Cm-Xss"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

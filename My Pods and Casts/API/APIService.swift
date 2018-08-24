@@ -24,7 +24,7 @@ class APIService {
 //            print(result.isSuccess)
             
             switch result {
-                
+    
             case let .rss(feed):
                 let episodes = feed.toEpisodes()
                 completionHandler(episodes)
