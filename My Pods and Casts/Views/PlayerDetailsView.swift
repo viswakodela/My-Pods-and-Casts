@@ -14,12 +14,19 @@ class PlayerDetailsView: UIView {
     @IBAction func dismissButton(_ sender: Any) {
         self.removeFromSuperview()
     }
-    
-    @IBOutlet weak var episodeImageView: UIImageView!
+    @IBOutlet weak var episodeImageView: UIImageView!{
+        didSet{
+            episodeImageView.layer.cornerRadius = 5
+            episodeImageView.clipsToBounds = true
+        }
+    }
     @IBOutlet weak var playerDetailsImageView: UIImageView!
     @IBOutlet weak var episodTitle: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var currentTimeLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var currentTimeSlider: UISlider!
     
     var episode: Episode! {
         didSet{
@@ -30,6 +37,7 @@ class PlayerDetailsView: UIView {
             authorLabel.text = episode.author
             
             playEpispde()
+            playerLabelAndSliderUpdates()
         }
     }
     
@@ -50,7 +58,24 @@ class PlayerDetailsView: UIView {
         playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
         player.play()
+    }
+    
+    fileprivate func playerLabelAndSliderUpdates() {
         
+        let interval = CMTimeMake(1, 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { (time) in
+            self.currentTimeLabel.text = time.toDisplayStringOfSeconds()
+            
+            guard let durationTime = self.player.currentItem?.duration else{return}
+            self.durationLabel.text = durationTime.toDisplayStringOfSeconds()
+            
+            let currentTime = CMTimeGetSeconds(self.player.currentTime())
+            let duration = CMTimeGetSeconds(self.player.currentItem?.duration ?? CMTimeMake(1, 1))
+            
+            let percentage = currentTime / duration
+            self.currentTimeSlider.value = Float(percentage)
+            
+        }
     }
     
     fileprivate func enlargeEpisodeImageView() {
@@ -60,7 +85,7 @@ class PlayerDetailsView: UIView {
         }, completion: nil)
     }
     
-    fileprivate func delargeEpisodeImageView() {
+    fileprivate func shrinkEpisodeImageView() {
         
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             let scale: CGFloat = 0.7
@@ -77,7 +102,7 @@ class PlayerDetailsView: UIView {
         } else {
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-            self.delargeEpisodeImageView()
+            self.shrinkEpisodeImageView()
         }
     }
 }

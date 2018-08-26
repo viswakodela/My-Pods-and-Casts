@@ -27,6 +27,7 @@
 		BDB7C67F21249C1000820726 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C67E21249C1000820726 /* FavoritesController.swift */; };
 		BDB7C68121249F5000820726 /* downloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C68021249F5000820726 /* downloadsController.swift */; };
 		BDB7C6852124A87A00820726 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB7C6842124A87A00820726 /* Podcast.swift */; };
+		BDC86BDA213313A800E7A972 /* CMTimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC86BD9213313A800E7A972 /* CMTimeExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		BDB7C67E21249C1000820726 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		BDB7C68021249F5000820726 /* downloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = downloadsController.swift; sourceTree = "<group>"; };
 		BDB7C6842124A87A00820726 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
+		BDC86BD9213313A800E7A972 /* CMTimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTimeExtension.swift; sourceTree = "<group>"; };
 		FFB7D3EFF24E5079BCE18292 /* Pods-My Pods and Casts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Pods and Casts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-My Pods and Casts/Pods-My Pods and Casts.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1C5C02212F0EF100034858 /* Extensions.swift */,
+				BDC86BD9213313A800E7A972 /* CMTimeExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				BDB7C66D2124985900820726 /* PodcastsSearchController.swift in Sources */,
 				BD1C5C07212F77D400034858 /* PlayerDetailsView.swift in Sources */,
+				BDC86BDA213313A800E7A972 /* CMTimeExtension.swift in Sources */,
 				BDB7C68121249F5000820726 /* downloadsController.swift in Sources */,
 				BDB7C6852124A87A00820726 /* Podcast.swift in Sources */,
 				BD4E4252212E411B00E12A42 /* Episode.swift in Sources */,
