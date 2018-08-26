@@ -32,7 +32,7 @@
                                 <action selector="dismissButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="FU9-nK-Yp7"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="qjT-fJ-2Dh">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="qjT-fJ-2Dh">
                             <rect key="frame" x="0.0" y="44" width="327" height="327"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="qjT-fJ-2Dh" secondAttribute="height" id="LDr-B9-cJw"/>
@@ -83,34 +83,49 @@
                                     <rect key="frame" x="0.0" y="0.0" width="48.666666666666664" height="205.66666666666666"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPy-ui-nsn">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPy-ui-nsn">
                                     <rect key="frame" x="48.666666666666671" y="0.0" width="44" height="205.66666666666666"/>
+                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="fUn-fi-kxt"/>
                                     </constraints>
-                                    <state key="normal" title="Button" image="rewind15"/>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Button" image="rewind15">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rUw-dG-aDO">
                                     <rect key="frame" x="92.666666666666671" y="0.0" width="49.000000000000014" height="205.66666666666666"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ky8-7F-BM0">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ky8-7F-BM0">
                                     <rect key="frame" x="141.66666666666666" y="0.0" width="54" height="205.66666666666666"/>
+                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="54" id="yvo-Um-WJd"/>
                                     </constraints>
-                                    <state key="normal" title="Button" image="play"/>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Button" image="play">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-wC-0gc">
                                     <rect key="frame" x="195.66666666666666" y="0.0" width="38.666666666666657" height="205.66666666666666"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-mn-bwG">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-mn-bwG">
                                     <rect key="frame" x="234.33333333333331" y="0.0" width="44" height="205.66666666666666"/>
+                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="MEk-K2-fld"/>
                                     </constraints>
-                                    <state key="normal" title="Button" image="fastforward15"/>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Button" image="fastforward15">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJQ-xs-s8X">
                                     <rect key="frame" x="278.33333333333331" y="0.0" width="48.666666666666686" height="205.66666666666666"/>
@@ -155,6 +170,8 @@
             <connections>
                 <outlet property="authorLabel" destination="dcu-do-tFg" id="qqd-4G-n5D"/>
                 <outlet property="episodTitle" destination="HGm-kJ-yX1" id="tbH-ZI-H85"/>
+                <outlet property="episodeImageView" destination="qjT-fJ-2Dh" id="2uZ-ay-hKx"/>
+                <outlet property="playPauseButton" destination="ky8-7F-BM0" id="VZL-kH-dpB"/>
                 <outlet property="playerDetailsImageView" destination="qjT-fJ-2Dh" id="EE7-tj-2Gz"/>
             </connections>
             <point key="canvasLocation" x="-54" y="-173"/>

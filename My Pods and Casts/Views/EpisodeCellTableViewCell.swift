@@ -30,7 +30,7 @@ class EpisodeCellTableViewCell: UITableViewCell {
             
             guard let imageUrl = episode?.imageUrl else {return}
             guard let url = URL(string: imageUrl) else {return}
-            episodeImageView.contentMode = .scaleAspectFit
+//            episodeImageView.contentMode = .scaleAspectFit
             episodeImageView.sd_setImage(with: url)
         }
     }

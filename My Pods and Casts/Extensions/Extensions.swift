@@ -12,7 +12,7 @@ extension RSSFeed {
     
     func toEpisodes() -> [Episode] {
         
-        let imageUrl = self.iTunes?.iTunesImage?.attributes?.href
+        let imageUrl = self.iTunes?.iTunesImage?.attributes?.href //Image URL of the episode
         var episodes = [Episode]()
         self.items?.forEach({ (feeditem) in
             var episode = Episode(feedItem: feeditem)

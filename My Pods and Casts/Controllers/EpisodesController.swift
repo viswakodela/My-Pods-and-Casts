@@ -66,15 +66,13 @@ extension EpisodesController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let episodes = self.episodes[indexPath.row]
         
+        let episodes = self.episodes[indexPath.row]
         guard let window = UIApplication.shared.keyWindow else {return}
         
         let playerDetailsView = Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
         playerDetailsView.episode = episodes
         playerDetailsView.frame = window.frame
         window.addSubview(playerDetailsView)
-        
-        
     }
 }

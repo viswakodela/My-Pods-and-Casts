@@ -53,9 +53,6 @@ class APIService {
             do{
                 let searchResults = try JSONDecoder().decode(SearchResults.self, from: data)
                 completiopnHandler(searchResults)
-//                print(searchResults)
-//                self.podcast = searchResults.results
-//                self.tableView.reloadData()
             }catch{
                 print(error)
             }
