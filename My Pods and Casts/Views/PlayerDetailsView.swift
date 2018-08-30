@@ -27,6 +27,31 @@ class PlayerDetailsView: UIView {
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeSlider: UISlider!
+    @IBAction func handleCurrentTimeSliderChange(_ sender: Any) {
+        
+        let percentage = currentTimeSlider.value
+        guard let duration =  player.currentItem?.duration else {return}
+        let duratiionInSeconds = CMTimeGetSeconds(duration)
+        let seekTimeInSeconds =  Float64(percentage) * duratiionInSeconds
+        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, Int32(NSEC_PER_SEC))
+        player.seek(to: seekTime)
+    }
+    
+    func sliderTimeChange(delta: Int64){
+        let fifteenSeconds = CMTimeMake(delta, 1)
+        let seekTime = CMTimeAdd(player.currentTime(), fifteenSeconds)
+        player.seek(to: seekTime)
+    }
+    @IBAction func farwardButton(_ sender: Any) {
+        sliderTimeChange(delta: 15)
+    }
+    @IBAction func backWardButton(_ sender: Any) {
+        sliderTimeChange(delta: -15)
+    }
+    @IBAction func volumeSlider(_ sender: Any) {
+        player.volume = volumeSliderChange.value
+    }
+    @IBOutlet weak var volumeSliderChange: UISlider!
     
     var episode: Episode! {
         didSet{
@@ -37,7 +62,6 @@ class PlayerDetailsView: UIView {
             authorLabel.text = episode.author
             
             playEpispde()
-            playerLabelAndSliderUpdates()
         }
     }
     
@@ -48,8 +72,8 @@ class PlayerDetailsView: UIView {
     
     fileprivate func playEpispde() {
         
-        let imageUrl = URL(string: episode.streamUrl)
-        guard let url = imageUrl else {return}
+        let streamUrl = URL(string: episode.streamUrl)
+        guard let url = streamUrl else {return}
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
         player.automaticallyWaitsToMinimizeStalling = false
@@ -58,6 +82,7 @@ class PlayerDetailsView: UIView {
         playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
         player.play()
+        playerLabelAndSliderUpdates()
     }
     
     fileprivate func playerLabelAndSliderUpdates() {
@@ -72,8 +97,8 @@ class PlayerDetailsView: UIView {
             let currentTime = CMTimeGetSeconds(self.player.currentTime())
             let duration = CMTimeGetSeconds(self.player.currentItem?.duration ?? CMTimeMake(1, 1))
             
-            let percentage = currentTime / duration
-            self.currentTimeSlider.value = Float(percentage)
+            let sliderPercentage = currentTime / duration
+            self.currentTimeSlider.value = Float(sliderPercentage)
             
         }
     }

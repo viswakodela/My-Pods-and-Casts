@@ -40,9 +40,13 @@
                         </imageView>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oHi-Am-vGX">
                             <rect key="frame" x="-2" y="371" width="331" height="37"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="TU5-DV-Rkk"/>
                             </constraints>
+                            <connections>
+                                <action selector="handleCurrentTimeSliderChange:" destination="sKS-Ef-3Li" eventType="valueChanged" id="Qse-LC-UKc"/>
+                            </connections>
                         </slider>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="VId-Gl-elz">
                             <rect key="frame" x="0.0" y="407" width="327" height="15.666666666666686"/>
@@ -91,6 +95,9 @@
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="backWardButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="KFT-dm-pmN"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rUw-dG-aDO">
                                     <rect key="frame" x="92.666666666666671" y="0.0" width="49.000000000000014" height="207.66666666666666"/>
@@ -123,6 +130,9 @@
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="farwardButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="GeR-4D-6Ng"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJQ-xs-s8X">
                                     <rect key="frame" x="278.33333333333331" y="0.0" width="48.666666666666686" height="207.66666666666666"/>
@@ -139,8 +149,11 @@
                                         <constraint firstAttribute="width" constant="34" id="f3E-At-4jn"/>
                                     </constraints>
                                 </imageView>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8iu-1B-uzI">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8iu-1B-uzI">
                                     <rect key="frame" x="32" y="0.0" width="263" height="35"/>
+                                    <connections>
+                                        <action selector="volumeSlider:" destination="sKS-Ef-3Li" eventType="valueChanged" id="gZV-vS-ptA"/>
+                                    </connections>
                                 </slider>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="max_volume" translatesAutoresizingMaskIntoConstraints="NO" id="ZiF-fQ-Sqh">
                                     <rect key="frame" x="293" y="0.0" width="34" height="34"/>
@@ -173,6 +186,7 @@
                 <outlet property="episodeImageView" destination="qjT-fJ-2Dh" id="2uZ-ay-hKx"/>
                 <outlet property="playPauseButton" destination="ky8-7F-BM0" id="VZL-kH-dpB"/>
                 <outlet property="playerDetailsImageView" destination="qjT-fJ-2Dh" id="EE7-tj-2Gz"/>
+                <outlet property="volumeSliderChange" destination="8iu-1B-uzI" id="cnO-jq-5nT"/>
             </connections>
             <point key="canvasLocation" x="-54" y="-173"/>
         </view>
