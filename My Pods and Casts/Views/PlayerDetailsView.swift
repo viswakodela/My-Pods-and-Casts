@@ -27,13 +27,14 @@ class PlayerDetailsView: UIView {
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeSlider: UISlider!
+    
     @IBAction func handleCurrentTimeSliderChange(_ sender: Any) {
         
         let percentage = currentTimeSlider.value
         guard let duration =  player.currentItem?.duration else {return}
         let duratiionInSeconds = CMTimeGetSeconds(duration)
         let seekTimeInSeconds =  Float64(percentage) * duratiionInSeconds
-        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, Int32(NSEC_PER_SEC))
+        let seekTime = CMTimeMake(Int64(seekTimeInSeconds), 1)
         player.seek(to: seekTime)
     }
     
@@ -88,17 +89,21 @@ class PlayerDetailsView: UIView {
     fileprivate func playerLabelAndSliderUpdates() {
         
         let interval = CMTimeMake(1, 2)
-        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { (time) in
-            self.currentTimeLabel.text = time.toDisplayStringOfSeconds()
+        
+        //player has areference to self
+        // self has a reference to player
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+            self?.currentTimeLabel.text = time.toDisplayStringOfSeconds()
             
-            guard let durationTime = self.player.currentItem?.duration else{return}
-            self.durationLabel.text = durationTime.toDisplayStringOfSeconds()
+            guard let durationTime = self?.player.currentItem?.duration else{return}
+            self?.durationLabel.text = durationTime.toDisplayStringOfSeconds()
             
-            let currentTime = CMTimeGetSeconds(self.player.currentTime())
-            let duration = CMTimeGetSeconds(self.player.currentItem?.duration ?? CMTimeMake(1, 1))
+            guard let time = self?.player.currentTime() else{return}
+            let currentTime = CMTimeGetSeconds(time)
+            let duration = CMTimeGetSeconds(self?.player.currentItem?.duration ?? CMTimeMake(1, 1))
             
             let sliderPercentage = currentTime / duration
-            self.currentTimeSlider.value = Float(sliderPercentage)
+            self?.currentTimeSlider.value = Float(sliderPercentage)
             
         }
     }
