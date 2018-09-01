@@ -12,7 +12,8 @@ import AVKit
 class PlayerDetailsView: UIView {
     
     @IBAction func dismissButton(_ sender: Any) {
-        self.removeFromSuperview()
+        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarController?.minimizePlayerDetails()
     }
     @IBOutlet weak var episodeImageView: UIImageView!{
         didSet{
@@ -54,6 +55,10 @@ class PlayerDetailsView: UIView {
     }
     @IBOutlet weak var volumeSliderChange: UISlider!
     
+    static func initFromNib() -> PlayerDetailsView {
+        return Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
+    }
+    
     var episode: Episode! {
         didSet{
             episodTitle.text = episode.title
@@ -64,6 +69,16 @@ class PlayerDetailsView: UIView {
             
             playEpispde()
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+    }
+    
+    @objc func handleTapMaximize() {
+        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarController?.maximizePlayerDetails(episode: self.episode)
     }
     
     let player: AVPlayer = {

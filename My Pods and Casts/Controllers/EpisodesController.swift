@@ -39,6 +39,10 @@ class EpisodesController: UITableViewController {
         setUptableView()
     }
     
+    deinit {
+        print("PlayerDetailsView being reclaimed...")
+    }
+    
 //MARK:- Setup tableView
     func setUptableView() {
         let nib = UINib(nibName: "EpisodeCellTableViewCell", bundle: nil)
@@ -61,10 +65,6 @@ extension EpisodesController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//
-//    }
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = .darkGray
@@ -76,10 +76,6 @@ extension EpisodesController {
         return episodes.isEmpty ? 200 : 0
     }
     
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return episodes.isEmpty ? 200 :0
-//    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
@@ -87,11 +83,15 @@ extension EpisodesController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let episodes = self.episodes[indexPath.row]
-        guard let window = UIApplication.shared.keyWindow else {return}
         
-        let playerDetailsView = Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
-        playerDetailsView.episode = episodes
-        playerDetailsView.frame = window.frame
-        window.addSubview(playerDetailsView)
+        let mainTabBarControoler = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarControoler?.maximizePlayerDetails(episode: episodes)
+        
+//        guard let window = UIApplication.shared.keyWindow else {return}
+//
+//        let playerDetailsView = PlayerDetailsView.initFromNib()
+//        playerDetailsView.episode = episodes
+//        playerDetailsView.frame = window.frame
+//        window.addSubview(playerDetailsView)
     }
 }
