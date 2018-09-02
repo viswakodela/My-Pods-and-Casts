@@ -17,6 +17,55 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpN-6m-30w">
+                    <rect key="frame" x="0.0" y="44" width="375" height="64"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OAZ-zU-2yh">
+                            <rect key="frame" x="8" y="8" width="359" height="48"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="dMU-0E-5nr">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="L6U-y0-rtA"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNV-OE-6c1" userLabel="EpisodeLabel">
+                                    <rect key="frame" x="56" y="0.0" width="191" height="48"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zu8-VZ-ziZ" userLabel="PlayPauseButton">
+                                    <rect key="frame" x="255" y="0.0" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="N65-ZX-Rwq"/>
+                                    </constraints>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" image="pause"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKW-oR-fHK" userLabel="FarwardButton">
+                                    <rect key="frame" x="311" y="0.0" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="jSE-05-PHy"/>
+                                    </constraints>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" image="fastforward15"/>
+                                    <connections>
+                                        <action selector="miniFastFarwardButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="sA6-pG-N5T"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="Fla-SV-tdG"/>
+                        <constraint firstAttribute="trailing" secondItem="OAZ-zU-2yh" secondAttribute="trailing" constant="8" id="TKL-AQ-EVm"/>
+                        <constraint firstItem="OAZ-zU-2yh" firstAttribute="top" secondItem="QpN-6m-30w" secondAttribute="top" constant="8" id="j3W-0G-MBh"/>
+                        <constraint firstItem="OAZ-zU-2yh" firstAttribute="leading" secondItem="QpN-6m-30w" secondAttribute="leading" constant="8" id="oNF-lK-USE"/>
+                        <constraint firstAttribute="bottom" secondItem="OAZ-zU-2yh" secondAttribute="bottom" constant="8" id="uh2-ZA-WRE"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pFf-7b-6CV">
                     <rect key="frame" x="24" y="54" width="327" height="700"/>
                     <subviews>
@@ -29,7 +78,7 @@
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="dismissButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="FU9-nK-Yp7"/>
+                                <action selector="dismissButton:" destination="sKS-Ef-3Li" eventType="touchUpInside" id="5RG-YV-u0e"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="qjT-fJ-2Dh">
@@ -151,6 +200,7 @@
                                 </imageView>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8iu-1B-uzI">
                                     <rect key="frame" x="32" y="0.0" width="263" height="35"/>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
                                         <action selector="volumeSlider:" destination="sKS-Ef-3Li" eventType="valueChanged" id="gZV-vS-ptA"/>
                                     </connections>
@@ -174,7 +224,10 @@
                 <constraint firstItem="gaX-ye-tEI" firstAttribute="bottom" secondItem="pFf-7b-6CV" secondAttribute="bottom" constant="24" id="7uN-fp-Ei9"/>
                 <constraint firstItem="pFf-7b-6CV" firstAttribute="leading" secondItem="gaX-ye-tEI" secondAttribute="leading" constant="24" id="GVY-91-wVC"/>
                 <constraint firstItem="pFf-7b-6CV" firstAttribute="top" secondItem="gaX-ye-tEI" secondAttribute="top" constant="10" id="GWZ-qz-Yy5"/>
+                <constraint firstItem="gaX-ye-tEI" firstAttribute="trailing" secondItem="QpN-6m-30w" secondAttribute="trailing" id="TiK-GY-ky1"/>
                 <constraint firstItem="gaX-ye-tEI" firstAttribute="trailing" secondItem="pFf-7b-6CV" secondAttribute="trailing" constant="24" id="W6J-pP-WPq"/>
+                <constraint firstItem="QpN-6m-30w" firstAttribute="leading" secondItem="gaX-ye-tEI" secondAttribute="leading" id="e95-qA-LdN"/>
+                <constraint firstItem="QpN-6m-30w" firstAttribute="top" secondItem="gaX-ye-tEI" secondAttribute="top" id="nXR-XZ-GSc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="gaX-ye-tEI"/>
             <connections>
@@ -184,11 +237,16 @@
                 <outlet property="durationLabel" destination="5U1-tp-g8C" id="crU-MY-zRx"/>
                 <outlet property="episodTitle" destination="HGm-kJ-yX1" id="tbH-ZI-H85"/>
                 <outlet property="episodeImageView" destination="qjT-fJ-2Dh" id="2uZ-ay-hKx"/>
+                <outlet property="maximizedStackView" destination="pFf-7b-6CV" id="gpt-yE-ung"/>
+                <outlet property="miniEpisodeImageView" destination="dMU-0E-5nr" id="07Y-7J-BzC"/>
+                <outlet property="miniEpisodeTitleLabel" destination="wNV-OE-6c1" id="z38-2W-OPE"/>
+                <outlet property="miniPlayPauseButton" destination="zu8-VZ-ziZ" id="XWw-EW-ySc"/>
+                <outlet property="miniPlayerView" destination="QpN-6m-30w" id="JLV-tz-gxU"/>
                 <outlet property="playPauseButton" destination="ky8-7F-BM0" id="VZL-kH-dpB"/>
                 <outlet property="playerDetailsImageView" destination="qjT-fJ-2Dh" id="EE7-tj-2Gz"/>
                 <outlet property="volumeSliderChange" destination="8iu-1B-uzI" id="cnO-jq-5nT"/>
             </connections>
-            <point key="canvasLocation" x="-54" y="-173"/>
+            <point key="canvasLocation" x="35" y="-181"/>
         </view>
     </objects>
     <resources>
@@ -196,6 +254,7 @@
         <image name="fastforward15" width="45" height="45"/>
         <image name="max_volume" width="32" height="32"/>
         <image name="muted_volume" width="32" height="32"/>
+        <image name="pause" width="57" height="57"/>
         <image name="play" width="59" height="59"/>
         <image name="rewind15" width="45" height="45"/>
     </resources>

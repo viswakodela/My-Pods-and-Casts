@@ -12,9 +12,10 @@ import AVKit
 class PlayerDetailsView: UIView {
     
     @IBAction func dismissButton(_ sender: Any) {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarController?.minimizePlayerDetails()
+            let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+            mainTabBarController?.minimizePlayerDetails()
     }
+    
     @IBOutlet weak var episodeImageView: UIImageView!{
         didSet{
             episodeImageView.layer.cornerRadius = 5
@@ -24,7 +25,12 @@ class PlayerDetailsView: UIView {
     @IBOutlet weak var playerDetailsImageView: UIImageView!
     @IBOutlet weak var episodTitle: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton! {
+        didSet{
+            playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+        }
+    }
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeSlider: UISlider!
@@ -59,13 +65,32 @@ class PlayerDetailsView: UIView {
         return Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
     }
     
-    var episode: Episode! {
+    //MARK:- Mini Player Outlets
+    
+    @IBOutlet weak var miniPlayerView: UIView!
+    @IBOutlet weak var maximizedStackView: UIStackView!
+    
+    @IBOutlet weak var miniEpisodeTitleLabel: UILabel!
+    @IBAction func miniFastFarwardButton(_ sender: Any) {
+    } 
+    @IBOutlet weak var miniEpisodeImageView: UIImageView!
+    @IBOutlet weak var miniPlayPauseButton: UIButton! {
+        didSet {
+            miniPlayPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+        }
+    }
+    
+    
+    var episode: Episode? {
         didSet{
-            episodTitle.text = episode.title
-            let imageUrl = episode.imageUrl ?? ""
+            episodTitle.text = episode?.title
+            let imageUrl = episode?.imageUrl ?? ""
             guard let url = URL(string: imageUrl) else {return}
             playerDetailsImageView.sd_setImage(with: url, completed: nil)
-            authorLabel.text = episode.author
+            authorLabel.text = episode?.author
+            
+            miniEpisodeImageView.sd_setImage(with: url, completed: nil)
+            miniEpisodeTitleLabel.text = episode?.title
             
             playEpispde()
         }
@@ -73,31 +98,44 @@ class PlayerDetailsView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
+        let time = CMTimeMake(1, 3)
+        let times = [NSValue(time: time)]
+        
+        // player has a reference to self
+        // self has a reference to player
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
+            print("Episode started playing")
+            self?.enlargeEpisodeImageView()
+        }
     }
     
     @objc func handleTapMaximize() {
         let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarController?.maximizePlayerDetails(episode: self.episode)
+        mainTabBarController?.maximizePlayerDetails(episode: nil)
     }
     
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
         return avPlayer
     }()
     
     fileprivate func playEpispde() {
         
+        guard let episode = self.episode else {return}
         let streamUrl = URL(string: episode.streamUrl)
         guard let url = streamUrl else {return}
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
-        player.automaticallyWaitsToMinimizeStalling = false
-        
-        enlargeEpisodeImageView()
-        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-        playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
         player.play()
+        
+//        enlargeEpisodeImageView()
+//        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+//        playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+//        player.play()
         playerLabelAndSliderUpdates()
     }
     
@@ -108,10 +146,10 @@ class PlayerDetailsView: UIView {
         //player has areference to self
         // self has a reference to player
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
-            self?.currentTimeLabel.text = time.toDisplayStringOfSeconds()
+            self?.currentTimeLabel.text = time.toDisplayString()
             
             guard let durationTime = self?.player.currentItem?.duration else{return}
-            self?.durationLabel.text = durationTime.toDisplayStringOfSeconds()
+            self?.durationLabel.text = durationTime.toDisplayString()
             
             guard let time = self?.player.currentTime() else{return}
             let currentTime = CMTimeGetSeconds(time)
@@ -143,10 +181,12 @@ class PlayerDetailsView: UIView {
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
             self.enlargeEpisodeImageView()
         } else {
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
             self.shrinkEpisodeImageView()
         }
     }
