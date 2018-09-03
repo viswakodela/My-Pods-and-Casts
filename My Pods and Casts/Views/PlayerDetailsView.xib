@@ -20,6 +20,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpN-6m-30w">
                     <rect key="frame" x="0.0" y="44" width="375" height="64"/>
                     <subviews>
+                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6l-ab-Cir">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.66666666666666663"/>
+                            <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="5Rg-m7-EjU"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OAZ-zU-2yh">
                             <rect key="frame" x="8" y="8" width="359" height="48"/>
                             <subviews>
@@ -61,8 +68,11 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="Fla-SV-tdG"/>
                         <constraint firstAttribute="trailing" secondItem="OAZ-zU-2yh" secondAttribute="trailing" constant="8" id="TKL-AQ-EVm"/>
+                        <constraint firstItem="C6l-ab-Cir" firstAttribute="top" secondItem="QpN-6m-30w" secondAttribute="top" id="XVl-qk-LTz"/>
+                        <constraint firstAttribute="trailing" secondItem="C6l-ab-Cir" secondAttribute="trailing" id="aoD-1E-0kW"/>
                         <constraint firstItem="OAZ-zU-2yh" firstAttribute="top" secondItem="QpN-6m-30w" secondAttribute="top" constant="8" id="j3W-0G-MBh"/>
                         <constraint firstItem="OAZ-zU-2yh" firstAttribute="leading" secondItem="QpN-6m-30w" secondAttribute="leading" constant="8" id="oNF-lK-USE"/>
+                        <constraint firstItem="C6l-ab-Cir" firstAttribute="leading" secondItem="QpN-6m-30w" secondAttribute="leading" id="sZx-EB-qbK"/>
                         <constraint firstAttribute="bottom" secondItem="OAZ-zU-2yh" secondAttribute="bottom" constant="8" id="uh2-ZA-WRE"/>
                     </constraints>
                 </view>
@@ -74,6 +84,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="25m-et-5EM"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Dismiss">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
@@ -240,6 +251,7 @@
                 <outlet property="maximizedStackView" destination="pFf-7b-6CV" id="gpt-yE-ung"/>
                 <outlet property="miniEpisodeImageView" destination="dMU-0E-5nr" id="07Y-7J-BzC"/>
                 <outlet property="miniEpisodeTitleLabel" destination="wNV-OE-6c1" id="z38-2W-OPE"/>
+                <outlet property="miniFarwardButton" destination="XKW-oR-fHK" id="mtT-S2-imr"/>
                 <outlet property="miniPlayPauseButton" destination="zu8-VZ-ziZ" id="XWw-EW-ySc"/>
                 <outlet property="miniPlayerView" destination="QpN-6m-30w" id="JLV-tz-gxU"/>
                 <outlet property="playPauseButton" destination="ky8-7F-BM0" id="VZL-kH-dpB"/>

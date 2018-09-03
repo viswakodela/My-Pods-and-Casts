@@ -40,7 +40,7 @@ class EpisodesController: UITableViewController {
     }
     
     deinit {
-        print("PlayerDetailsView being reclaimed...")
+        print("EpisodesView being reclaimed...")
     }
     
 //MARK:- Setup tableView

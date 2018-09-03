@@ -69,14 +69,21 @@ class PlayerDetailsView: UIView {
     
     @IBOutlet weak var miniPlayerView: UIView!
     @IBOutlet weak var maximizedStackView: UIStackView!
+    @IBOutlet weak var miniFarwardButton: UIButton! {
+        didSet {
+            miniFarwardButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        }
+    }
     
     @IBOutlet weak var miniEpisodeTitleLabel: UILabel!
     @IBAction func miniFastFarwardButton(_ sender: Any) {
+        sliderTimeChange(delta: 15)
     } 
     @IBOutlet weak var miniEpisodeImageView: UIImageView!
     @IBOutlet weak var miniPlayPauseButton: UIButton! {
         didSet {
             miniPlayPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+            miniPlayPauseButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         }
     }
     
@@ -96,26 +103,7 @@ class PlayerDetailsView: UIView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
-        
-        let time = CMTimeMake(1, 3)
-        let times = [NSValue(time: time)]
-        
-        // player has a reference to self
-        // self has a reference to player
-        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
-            print("Episode started playing")
-            self?.enlargeEpisodeImageView()
-        }
-    }
-    
-    @objc func handleTapMaximize() {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarController?.maximizePlayerDetails(episode: nil)
-    }
+    var panGesture: UIPanGestureRecognizer!
     
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
@@ -131,11 +119,6 @@ class PlayerDetailsView: UIView {
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
         player.play()
-        
-//        enlargeEpisodeImageView()
-//        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-//        playPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
-//        player.play()
         playerLabelAndSliderUpdates()
     }
     
@@ -157,11 +140,10 @@ class PlayerDetailsView: UIView {
             
             let sliderPercentage = currentTime / duration
             self?.currentTimeSlider.value = Float(sliderPercentage)
-            
         }
     }
     
-    fileprivate func enlargeEpisodeImageView() {
+    func enlargeEpisodeImageView() {
         
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.episodeImageView.transform = .identity
