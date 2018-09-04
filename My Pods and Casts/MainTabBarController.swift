@@ -48,8 +48,6 @@ class MainTabBarController: UITabBarController {
             self.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
             self.playerDetailsView.maximizedStackView.alpha = 1
             self.playerDetailsView.miniPlayerView.isHidden = true
-//            self.playerDetailsView.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-            
         }, completion: nil)
     }
     

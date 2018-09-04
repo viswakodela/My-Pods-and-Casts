@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import MediaPlayer
 
 class PlayerDetailsView: UIView {
     
@@ -104,6 +105,72 @@ class PlayerDetailsView: UIView {
     }
     
     var panGesture: UIPanGestureRecognizer!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
+        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        miniPlayerView.addGestureRecognizer(panGesture)
+        
+        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissPanGesture)))
+        
+        setupAudioSession()
+        setupRemoteControl()
+        
+        let time = CMTimeMake(1, 3)
+        let times = [NSValue(time: time)]
+        
+        // player has a reference to self
+        // self has a reference to player
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
+            print("Episode started playing")
+            self?.enlargeEpisodeImageView()
+        }
+    }
+    
+    fileprivate func setupAudioSession() {
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Error capturing the Audio Session:", error)
+        }
+        
+    }
+    
+    fileprivate func setupRemoteControl() {
+        
+        let controlCenter = MPRemoteCommandCenter.shared()
+        
+        controlCenter.playCommand.isEnabled = true
+        controlCenter.playCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            
+            self.player.play()
+            self.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            return .success
+        }
+        
+        controlCenter.pauseCommand.isEnabled = true
+        controlCenter.pauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            
+            self.player.pause()
+            self.playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            return .success
+        }
+        
+        controlCenter.togglePlayPauseCommand.isEnabled = true
+        controlCenter.togglePlayPauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.handlePlayPause()
+            return .success
+        }
+        
+    }
+    
     
     let player: AVPlayer = {
         let avPlayer = AVPlayer()

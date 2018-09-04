@@ -84,6 +84,8 @@ extension EpisodesController {
         
         let episodes = self.episodes[indexPath.row]
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let mainTabBarControoler = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
         mainTabBarControoler?.maximizePlayerDetails(episode: episodes)
         
