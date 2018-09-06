@@ -23,6 +23,7 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
         
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellid)
         setUpsearchBarAndNavigationsItems()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
     }
     
     fileprivate func setUpsearchBarAndNavigationsItems(){

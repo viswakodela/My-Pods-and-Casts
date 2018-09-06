@@ -37,6 +37,7 @@ class EpisodesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUptableView()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
     }
     
     deinit {
@@ -87,7 +88,7 @@ extension EpisodesController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let mainTabBarControoler = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarControoler?.maximizePlayerDetails(episode: episodes)
+        mainTabBarControoler?.maximizePlayerDetails(episode: episodes, playListOfEpispdes: self.episodes)
         
 //        guard let window = UIApplication.shared.keyWindow else {return}
 //

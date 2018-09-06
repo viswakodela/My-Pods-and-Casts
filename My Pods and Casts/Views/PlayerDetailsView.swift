@@ -101,13 +101,6 @@ class PlayerDetailsView: UIView {
             miniEpisodeTitleLabel.text = episode?.title
             
             miniEpisodeImageView.sd_setImage(with: url, completed: nil)
-            miniEpisodeImageView.sd_setImage(with: url) { (image, _, _, _) in
-                let image = self.miniEpisodeImageView.image ?? UIImage()
-                let artwork =  MPMediaItemArtwork(boundsSize: .zero, requestHandler: { (size) -> UIImage in
-                    return image
-                })
-                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artwork
-            }
             
             setUpNowPlayingInfo()
             
@@ -121,11 +114,18 @@ class PlayerDetailsView: UIView {
         nowPlayingInfo[MPMediaItemPropertyTitle] = self.episode?.title
         nowPlayingInfo[MPMediaItemPropertyArtist] = self.episode?.author
         
-//        guard let currentItem = player.currentItem else {return}
-//        let durationInSeconds = CMTimeGetSeconds(currentItem.duration)
-//        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = durationInSeconds
-        
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        
+        // Lock Screen Artwork
+        let imageUrl = episode?.imageUrl ?? ""
+        guard let url = URL(string: imageUrl) else {return}
+        miniEpisodeImageView.sd_setImage(with: url) { (image, _, _, _) in
+            let image = self.miniEpisodeImageView.image ?? UIImage()
+            let artwork =  MPMediaItemArtwork(boundsSize: .zero, requestHandler: { (size) -> UIImage in
+                return image
+            })
+            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artwork
+        }
         
     }
     
@@ -164,8 +164,32 @@ class PlayerDetailsView: UIView {
         
         setupAudioSession()
         setupRemoteControl()
+        setupNotificationObserver()
         
         observeBoundryTime()
+    }
+    
+    fileprivate func setupNotificationObserver() {
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(handleInterruction), name: .AVAudioSessionInterruption, object: nil)
+    }
+    
+    @objc fileprivate func handleInterruction(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo else {return}
+        guard let type = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt else {return}
+        
+        if type == AVAudioSessionInterruptionType.began.rawValue {
+            print("inderruptions Began")
+            player.pause()
+            self.playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        } else {
+            print("Interruptions Ended")
+            player.play()
+            self.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        }
     }
     
     fileprivate func setupAudioSession() {
@@ -189,6 +213,7 @@ class PlayerDetailsView: UIView {
             self.player.play()
             self.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
             self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            self.enlargeEpisodeImageView()
             
             self.setUpElapsedTime()
             return .success
@@ -200,6 +225,7 @@ class PlayerDetailsView: UIView {
             self.player.pause()
             self.playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
             self.miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            self.shrinkEpisodeImageView()
             
             self.setUpElapsedTime()
             return .success
@@ -210,6 +236,53 @@ class PlayerDetailsView: UIView {
             self.handlePlayPause()
             return .success
         }
+        
+        controlCenter.nextTrackCommand.isEnabled = true
+        controlCenter.nextTrackCommand.addTarget(self, action: #selector(handleNext))
+        controlCenter.previousTrackCommand.isEnabled = true
+        controlCenter.previousTrackCommand.addTarget(self, action: #selector(handlePrevious))
+    }
+    
+    var playList = [Episode]()
+    @objc func handleNext() {
+        
+        if playList.count == 0 {
+            return
+        }
+        
+        let currentEpisodeIndex = playList.index { (ep) -> Bool in
+            return ep.author == self.episode?.author && ep.title == self.episode?.title
+        }
+        
+        guard let index = currentEpisodeIndex else {return}
+        
+        var nextEpisode: Episode
+        if index == playList.count - 1 {
+            nextEpisode = playList[0]
+        } else {
+            nextEpisode = playList[index + 1]
+        }
+        self.episode = nextEpisode
+        
+    }
+    
+    @objc func handlePrevious() {
+        
+        if playList.count == 0 {
+            return
+        }
+        
+        let currentIndex = playList.index { (ep) -> Bool in
+            return ep.author == self.episode?.author && ep.title == self.episode?.title
+        }
+        let previousEpisode: Episode
+        guard let index = currentIndex else {return}
+        if index == 0 {
+            previousEpisode = playList[playList.count - 1]
+        } else {
+            previousEpisode = playList[index - 1]
+        }
+        self.episode = previousEpisode
     }
     
     func setUpElapsedTime() {
