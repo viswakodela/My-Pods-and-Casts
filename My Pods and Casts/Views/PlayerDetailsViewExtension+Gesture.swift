@@ -11,8 +11,6 @@ import AVKit
 
 extension PlayerDetailsView {
     
-    
-    
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         
         if gesture.state == .began {
