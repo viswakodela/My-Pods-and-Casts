@@ -19,7 +19,9 @@ class MainTabBarController: UITabBarController {
         
         tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         
-        let favoritesNavController = generateNavigationController(with: FavoritesController(), title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
+        let favoriteController = FavoritesController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        let favoritesNavController = generateNavigationController(with: favoriteController, title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
         
         let searchBarNavController = generateNavigationController(with: PodcastsSearchController(), title: "Search", image: #imageLiteral(resourceName: "search"))
         
