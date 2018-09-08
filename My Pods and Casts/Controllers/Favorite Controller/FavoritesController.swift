@@ -9,7 +9,9 @@
 import UIKit
 
 class FavoritesController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+   
     
+    var podcasts = UserDefaults.standard.savedPodcasts()
     
     let cellId = "cellId"
     override func viewDidLoad() {
@@ -22,16 +24,37 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
     fileprivate func setupCollectionView() {
         collectionView?.backgroundColor = .white
         collectionView?.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
+    }
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        
+        let location = gesture.location(in: collectionView)
+        guard let selectedIndexPath = collectionView?.indexPathForItem(at: location) else {return}
+        
+        let alertController = UIAlertController(title: "Remove Podcast?", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            self.podcasts.remove(at: selectedIndexPath.item)
+            self.collectionView?.deleteItems(at: [selectedIndexPath])
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
+        
     }
     
     
     //MARK:- UICollectionView delegate and Spacing Methods
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        
+        print(podcasts.count)
+        return podcasts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let podcast = self.podcasts[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FavoriteCollectionViewCell
+        cell.podcast = podcast
         return cell
     }
     

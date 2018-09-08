@@ -6,10 +6,13 @@
 //  Copyright © 2018 Viswa Kodela. All rights reserved.
 //
 
+
+
 import UIKit
 import FeedKit
 
 class EpisodesController: UITableViewController {
+    
     
     fileprivate let cellId = "episodeCellId"
     
@@ -46,32 +49,33 @@ class EpisodesController: UITableViewController {
             UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetch))
         ]
     }
-    
-    let favoretedPodcastKey = "favoretedPodcastKey"
     @objc fileprivate func handleSaveFavorite() {
         print("Handling favorite")
         
         guard let podcast = self.selectedPodcast else {return}
-//        UserDefaults.standard.set(podcast.trackName, forKey: favoretedPodcastKey)
+        
+        
         
         // 1. Transform Podcast into Data
-        let data = NSKeyedArchiver.archivedData(withRootObject: podcast)
         
-        UserDefaults.standard.set(data, forKey: favoretedPodcastKey)
+        var listOfPodcasts = UserDefaults.standard.savedPodcasts()
+        listOfPodcasts.append(podcast)
+        let data = NSKeyedArchiver.archivedData(withRootObject: listOfPodcasts)
+        
+        UserDefaults.standard.set(data, forKey: UserDefaults.favoretedPodcastKey)
     }
     
     @objc fileprivate func handleFetch(){
         print("handling Fetch")
-//        let value = UserDefaults.standard.value(forKey: favoretedPodcastKey) as? String
-//        print(value ?? "")
         
         // 2. Tranform Data into Podcast
-        guard let data = UserDefaults.standard.data(forKey: favoretedPodcastKey) else {return}
+        guard let data = UserDefaults.standard.data(forKey: UserDefaults.favoretedPodcastKey) else {return}
         
-        let podcast = NSKeyedUnarchiver.unarchiveObject(with: data) as? Podcast
+        let savedPodcast = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Podcast]
         
-        print(podcast?.trackName , podcast?.artistName)
-        
+        savedPodcast?.forEach({ (pod) in
+            print(pod.trackName ?? "", pod.artistName ?? "")
+        })
     }
     
     deinit {

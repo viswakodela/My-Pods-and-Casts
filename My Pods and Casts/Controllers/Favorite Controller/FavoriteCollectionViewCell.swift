@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
+    
+    
+    var podcast: Podcast? {
+        didSet {
+            self.trackName.text = podcast?.trackName
+            self.artistNameLabel.text = podcast?.artistName
+            guard let imageUrl = podcast?.artworkUrl600 else {return}
+            guard let url = URL(string: imageUrl) else {return}
+            imageView.sd_setImage(with: url, completed: nil)
+            
+        }
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +43,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return iv
     }()
     
-    let albumTitle: UILabel = {
+    let trackName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -50,7 +64,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     fileprivate func setupConstraints() {
         
-        let stackView = UIStackView(arrangedSubviews: [imageView, albumTitle, artistNameLabel])
+        let stackView = UIStackView(arrangedSubviews: [imageView, trackName, artistNameLabel])
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
