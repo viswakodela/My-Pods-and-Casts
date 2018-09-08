@@ -21,6 +21,16 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        weak var mainTabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabController?.viewControllers?[0].tabBarItem.badgeValue = nil
+        
+        podcasts = UserDefaults.standard.savedPodcasts()
+        collectionView?.reloadData()
+    }
+    
     fileprivate func setupCollectionView() {
         collectionView?.backgroundColor = .white
         collectionView?.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
@@ -34,8 +44,17 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
         
         let alertController = UIAlertController(title: "Remove Podcast?", message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            
             self.podcasts.remove(at: selectedIndexPath.item)
             self.collectionView?.deleteItems(at: [selectedIndexPath])
+            
+            // Deleting the index of the Podcasts Array that is saved in the UserDefaults
+            var podcasts = UserDefaults.standard.savedPodcasts()
+            podcasts.remove(at: selectedIndexPath.item)
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: podcasts)
+            UserDefaults.standard.set(data, forKey: UserDefaults.favoretedPodcastKey)
+            
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -69,6 +88,12 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let episodesViewController = EpisodesController()
+        episodesViewController.selectedPodcast = self.podcasts[indexPath.item]
+        navigationController?.pushViewController(episodesViewController, animated: true)
     }
     
 }

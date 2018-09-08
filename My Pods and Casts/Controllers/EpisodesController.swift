@@ -45,9 +45,20 @@ class EpisodesController: UITableViewController {
     }
     
     fileprivate func setUpNavigationBarButtons() {
-        navigationItem.rightBarButtonItems = [ UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
-            UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetch))
-        ]
+        
+        // check if we have already saved the podcast as favorite
+        let savedPodcast = UserDefaults.standard.savedPodcasts()
+        let hasFavorited = savedPodcast.index(where: { (p) -> Bool in
+            p.trackName == self.selectedPodcast?.trackName && p.artistName == self.selectedPodcast?.artistName
+        }) != nil
+        if hasFavorited {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "heart"), style: .plain, target: nil, action: nil)
+        } else {
+            
+            navigationItem.rightBarButtonItems = [ UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
+//            UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetch))
+            ]
+        }
     }
     @objc fileprivate func handleSaveFavorite() {
         print("Handling favorite")
@@ -60,9 +71,18 @@ class EpisodesController: UITableViewController {
         
         var listOfPodcasts = UserDefaults.standard.savedPodcasts()
         listOfPodcasts.append(podcast)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "heart"), style: .plain, target: nil, action: nil)
         let data = NSKeyedArchiver.archivedData(withRootObject: listOfPodcasts)
         
         UserDefaults.standard.set(data, forKey: UserDefaults.favoretedPodcastKey)
+        
+        showBadgeHiglight()
+    }
+    
+    func showBadgeHiglight() {
+        let mainTabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabController?.viewControllers?[0].tabBarItem.badgeValue = "1"
     }
     
     @objc fileprivate func handleFetch(){
