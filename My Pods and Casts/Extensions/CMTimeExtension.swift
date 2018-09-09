@@ -16,6 +16,7 @@ extension CMTime {
             }
             
             let totalSeconds = Int(CMTimeGetSeconds(self))
+            print(totalSeconds)
             let seconds = totalSeconds % 60
             let minutes = totalSeconds % (60 * 60) / 60
             let hours = totalSeconds / 60 / 60

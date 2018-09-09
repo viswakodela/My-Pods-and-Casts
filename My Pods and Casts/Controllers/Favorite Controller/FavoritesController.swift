@@ -33,6 +33,7 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
     
     fileprivate func setupCollectionView() {
         collectionView?.backgroundColor = .white
+        collectionView?.alwaysBounceVertical = true
         collectionView?.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
     }

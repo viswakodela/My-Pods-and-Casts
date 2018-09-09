@@ -48,6 +48,7 @@ class EpisodesController: UITableViewController {
         
         // check if we have already saved the podcast as favorite
         let savedPodcast = UserDefaults.standard.savedPodcasts()
+        
         let hasFavorited = savedPodcast.index(where: { (p) -> Bool in
             p.trackName == self.selectedPodcast?.trackName && p.artistName == self.selectedPodcast?.artistName
         }) != nil
@@ -55,11 +56,12 @@ class EpisodesController: UITableViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "heart"), style: .plain, target: nil, action: nil)
         } else {
             
-            navigationItem.rightBarButtonItems = [ UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
+            navigationItem.rightBarButtonItems = [ UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite))
 //            UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetch))
             ]
         }
     }
+    
     @objc fileprivate func handleSaveFavorite() {
         print("Handling favorite")
         
@@ -154,5 +156,17 @@ extension EpisodesController {
 //        playerDetailsView.episode = episodes
 //        playerDetailsView.frame = window.frame
 //        window.addSubview(playerDetailsView)
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let downloadAction = UITableViewRowAction(style: .normal, title: "Download") { (_, _) in
+            print("downloading episode into UseDefaults")
+            let episode = self.episodes[indexPath.row]
+                UserDefaults.standard.downloadEpisodes(episode: episode)
+            let mainTabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+            mainTabController?.viewControllers?[2].tabBarItem.badgeValue = "1"
+        }
+        return [downloadAction]
     }
 }
