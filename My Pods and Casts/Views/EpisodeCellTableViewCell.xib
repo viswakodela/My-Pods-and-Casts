@@ -50,12 +50,21 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nru-ny-VKz">
+                        <rect key="frame" x="38" y="84.5" width="77" height="34.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1yV-xY-BaV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="51d-wZ-E6a"/>
+                    <constraint firstItem="nru-ny-VKz" firstAttribute="centerX" secondItem="1yV-xY-BaV" secondAttribute="centerX" id="Gjw-wX-vYy"/>
                     <constraint firstItem="1yV-xY-BaV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IbP-1g-ksn"/>
                     <constraint firstItem="1G9-ZM-nZi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Noe-bk-Hzm"/>
                     <constraint firstItem="1G9-ZM-nZi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="SGS-go-F7A"/>
+                    <constraint firstItem="nru-ny-VKz" firstAttribute="centerY" secondItem="1yV-xY-BaV" secondAttribute="centerY" id="jMH-nm-FzR"/>
                     <constraint firstItem="1G9-ZM-nZi" firstAttribute="leading" secondItem="1yV-xY-BaV" secondAttribute="trailing" constant="10" id="oQp-Cm-Xss"/>
                 </constraints>
             </tableViewCellContentView>
@@ -65,6 +74,7 @@
                 <outlet property="episodeImageView" destination="1yV-xY-BaV" id="Mqd-ai-lsM"/>
                 <outlet property="episodePubDate" destination="jNl-6H-p87" id="Gtp-C8-5TJ"/>
                 <outlet property="episodeTitle" destination="923-rZ-akZ" id="NjM-8N-PbD"/>
+                <outlet property="progressLabel" destination="nru-ny-VKz" id="rhh-T7-ZzT"/>
             </connections>
             <point key="canvasLocation" x="52" y="49.5"/>
         </tableViewCell>

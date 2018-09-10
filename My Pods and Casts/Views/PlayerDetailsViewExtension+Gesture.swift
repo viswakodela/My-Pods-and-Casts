@@ -11,27 +11,6 @@ import AVKit
 
 extension PlayerDetailsView {
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
-        
-        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        miniPlayerView.addGestureRecognizer(panGesture)
-        
-        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissPanGesture)))
-        
-        let time = CMTimeMake(1, 3)
-        let times = [NSValue(time: time)]
-        
-        // player has a reference to self
-        // self has a reference to player
-        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
-            print("Episode started playing")
-            self?.enlargeEpisodeImageView()
-        }
-    }
-    
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         
         if gesture.state == .began {
@@ -44,7 +23,6 @@ extension PlayerDetailsView {
             handlePanGestureEnded(gesture: gesture)
         }
     }
-    
     
     func handlePanGestureChanged(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self.superview)

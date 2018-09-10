@@ -19,7 +19,9 @@ class MainTabBarController: UITabBarController {
         
         tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         
-        let favoritesNavController = generateNavigationController(with: FavoritesController(), title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
+        let favoriteController = FavoritesController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        let favoritesNavController = generateNavigationController(with: favoriteController, title: "Favorites", image: #imageLiteral(resourceName: "favorites"))
         
         let searchBarNavController = generateNavigationController(with: PodcastsSearchController(), title: "Search", image: #imageLiteral(resourceName: "search"))
         
@@ -31,7 +33,7 @@ class MainTabBarController: UITabBarController {
 //        perform(#selector(maximizePlayerDetails), with: nil, afterDelay: 1)
     }
     
-    func maximizePlayerDetails(episode: Episode?) {
+    func maximizePlayerDetails(episode: Episode?, playListOfEpispdes: [Episode] = []) {
         
         minimizedTopAnchorConstraint?.isActive = false
         maximizedTopAnchorConstraint?.isActive = true
@@ -43,13 +45,13 @@ class MainTabBarController: UITabBarController {
             playerDetailsView.episode = episode
         }
         
+        playerDetailsView.playList = playListOfEpispdes
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             self.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
             self.playerDetailsView.maximizedStackView.alpha = 1
             self.playerDetailsView.miniPlayerView.isHidden = true
-//            self.playerDetailsView.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-            
         }, completion: nil)
     }
     
