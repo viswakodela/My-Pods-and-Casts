@@ -263,7 +263,6 @@ class PlayerDetailsView: UIView {
             nextEpisode = playList[index + 1]
         }
         self.episode = nextEpisode
-        
     }
     
     @objc func handlePrevious() {
@@ -304,10 +303,31 @@ class PlayerDetailsView: UIView {
         guard let episode = self.episode else {return}
         let streamUrl = URL(string: episode.streamUrl)
         guard let url = streamUrl else {return}
-        let playerItem = AVPlayerItem(url: url)
-        player.replaceCurrentItem(with: playerItem)
-        player.play()
-        playerLabelAndSliderUpdates()
+        
+        if episode.fileUrl != nil {
+            
+            print(episode.fileUrl)
+            guard var trueLocation = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
+            print(trueLocation.absoluteString)
+            
+            guard let fileUrl = URL(string: episode.fileUrl ?? "") else {return}
+            let fileName = fileUrl.lastPathComponent
+            
+            print(trueLocation.appendPathComponent(fileName))
+            
+            let playerItem = AVPlayerItem(url: trueLocation)
+            player.replaceCurrentItem(with: playerItem)
+            player.play()
+            playerLabelAndSliderUpdates()
+            
+        } else {
+            
+            let playerItem = AVPlayerItem(url: url)
+            player.replaceCurrentItem(with: playerItem)
+            player.play()
+            playerLabelAndSliderUpdates()
+        }
+        
     }
     
     fileprivate func playerLabelAndSliderUpdates() {

@@ -16,6 +16,7 @@ class EpisodeCellTableViewCell: UITableViewCell {
     @IBOutlet weak var episodeTitle: UILabel!
     @IBOutlet weak var episodeDescription: UILabel!
     
+    @IBOutlet weak var progressLabel: UILabel!
     var episode: Episode? {
         didSet{
             

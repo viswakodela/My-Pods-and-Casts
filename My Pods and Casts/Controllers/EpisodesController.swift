@@ -163,9 +163,11 @@ extension EpisodesController {
         let downloadAction = UITableViewRowAction(style: .normal, title: "Download") { (_, _) in
             print("downloading episode into UseDefaults")
             let episode = self.episodes[indexPath.row]
-                UserDefaults.standard.downloadEpisodes(episode: episode)
+            UserDefaults.standard.downloadEpisodes(episode: episode)
             let mainTabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
             mainTabController?.viewControllers?[2].tabBarItem.badgeValue = "1"
+            
+            APIService.shared.downloadEpisode(episode: episode)
         }
         return [downloadAction]
     }

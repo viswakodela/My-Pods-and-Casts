@@ -162,7 +162,6 @@
 				BDB7C6832124A86500820726 /* Model */,
 				BD4E424A212DCFF400E12A42 /* Views */,
 				BDB7C6822124A79D00820726 /* Controllers */,
-				BDB7C68021249F5000820726 /* downloadsController.swift */,
 				BDB7C66E2124985900820726 /* Main.storyboard */,
 				BDB7C6712124985D00820726 /* Assets.xcassets */,
 				BDB7C6732124985D00820726 /* LaunchScreen.storyboard */,
@@ -177,6 +176,7 @@
 				BD18DDFC2141E56700BC2E98 /* Favorite Controller */,
 				BDB7C66C2124985900820726 /* PodcastsSearchController.swift */,
 				BD4E424F212E238100E12A42 /* EpisodesController.swift */,
+				BDB7C68021249F5000820726 /* downloadsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
