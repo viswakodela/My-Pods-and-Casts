@@ -27,6 +27,8 @@ extension PlayerDetailsView {
     func handlePanGestureChanged(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self.superview)
         self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        miniPlayerView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        print(translation.y)
         miniPlayerView.alpha = 1 + translation.y / 200
         //        let trans = gesture.translation(in: maximizedStackView)
         maximizedStackView.alpha = -translation.y / 200
@@ -40,6 +42,7 @@ extension PlayerDetailsView {
             let velocity = gesture.velocity(in: self.superview)
             //                print("Ended:", translation.y)
             self.transform = .identity
+            self.miniPlayerView.transform = .identity
             self.layoutIfNeeded()
             if translation.y < -200 || velocity.y < -500 {
                 let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
@@ -66,6 +69,7 @@ extension PlayerDetailsView {
                 if translation.y > 30 {
                     
                     self.miniPlayerView.alpha = 1
+                    self.miniPlayerView.transform = .identity
                     let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
                     mainTabBarController?.minimizePlayerDetails()
                 }

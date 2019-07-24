@@ -24,5 +24,4 @@ extension RSSFeed {
         })
         return episodes
     }
-    
 }

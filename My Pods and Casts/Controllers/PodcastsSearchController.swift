@@ -89,8 +89,6 @@ extension PodcastsSearchController {
         let selectedPodcast = podcast[indexPath.row]
         episodesController.selectedPodcast = selectedPodcast
         navigationController?.pushViewController(episodesController, animated: true)
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

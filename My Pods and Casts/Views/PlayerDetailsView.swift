@@ -306,7 +306,7 @@ class PlayerDetailsView: UIView {
         
         if episode.fileUrl != nil {
             
-            print(episode.fileUrl)
+//            print(episode.fileUrl)
             guard var trueLocation = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
             print(trueLocation.absoluteString)
             
@@ -334,7 +334,7 @@ class PlayerDetailsView: UIView {
         
         let interval = CMTimeMake(1, 2)
         
-        //player has areference to self
+        //player has a reference to self
         // self has a reference to player
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
             self?.currentTimeLabel.text = time.toDisplayString()

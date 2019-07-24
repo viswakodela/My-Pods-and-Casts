@@ -28,7 +28,7 @@ class MainTabBarController: UITabBarController {
         let downLoadsNavController = generateNavigationController(with: downloadsController(), title: "Downloads", image: #imageLiteral(resourceName: "downloads"))
         
         viewControllers = [favoritesNavController, searchBarNavController, downLoadsNavController]
-        print(tabBar.frame)
+//        print(tabBar.frame)
         setUpPlayerDetailView()
 //        perform(#selector(maximizePlayerDetails), with: nil, afterDelay: 1)
     }
@@ -105,5 +105,4 @@ class MainTabBarController: UITabBarController {
         return navigationController
         
     }
-    
 }

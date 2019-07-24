@@ -67,8 +67,6 @@ class EpisodesController: UITableViewController {
         
         guard let podcast = self.selectedPodcast else {return}
         
-        
-        
         // 1. Transform Podcast into Data
         
         var listOfPodcasts = UserDefaults.standard.savedPodcasts()

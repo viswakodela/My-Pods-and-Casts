@@ -41,7 +41,6 @@ class downloadsController: UITableViewController {
             ep.title == title
         }) else {return}
         self.downlaodedEpisodes[index].fileUrl = fileUrl
-        
     }
     
     

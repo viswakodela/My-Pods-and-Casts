@@ -12,6 +12,7 @@ extension UserDefaults {
     
     static let favoretedPodcastKey = "favoretedPodcastKey"
     static let downloadedEpisodeKey = "downloadedEpisodeKey"
+    
     func savedPodcasts() -> [Podcast] {
         
         guard let savedPodcastsData = UserDefaults.standard.data(forKey: UserDefaults.favoretedPodcastKey) else {return []}

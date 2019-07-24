@@ -31,10 +31,11 @@ class APIService {
             
             NotificationCenter.default.post(name: .downloadProgressNotification, object: nil, userInfo: ["title" : episode.title, "progress" : progress.fractionCompleted])
             
+            
             }.response { (resp) in
                 print(resp.destinationURL ?? "")
                 
-                NotificationCenter.default.post(name: .downloadCompleteNotification, object: nil, userInfo: ["title": episode.title, "fileUrl": resp.destinationURL?.absoluteString])
+                NotificationCenter.default.post(name: .downloadCompleteNotification, object: nil, userInfo: ["title": episode.title, "fileUrl": resp.destinationURL?.absoluteString ?? ""])
                 
                 // we have to update UserDefaults downloaded episodes
                 var downloadedEpisodes = UserDefaults.standard.downloadedEpisodes()
@@ -51,8 +52,6 @@ class APIService {
                 } catch {
                     print("Error encoding the FileUrl:", error)
                 }
-    
-                
         }
     }
     
@@ -60,7 +59,6 @@ class APIService {
         
 //        print(self.selectedPodcast?.feedUrl ?? "")
         guard let feedUrl = URL(string: feedUrl) else {return}
-        
         DispatchQueue.global(qos: .background).async {
             
             let parser = FeedParser(URL: feedUrl)
@@ -81,7 +79,7 @@ class APIService {
         }
     }
     
-    func fetchPodCasts(searchText: String, completiopnHandler: @escaping (SearchResults) -> ()) {
+    func fetchPodCasts(searchText: String, completiopnHandler: @escaping (SearchResults) -> Void) {
         
         let url = "https://itunes.apple.com/search"
         let paramenters = ["term": searchText, "media": "podcast"]
@@ -91,13 +89,13 @@ class APIService {
                 print("Failed to connect to Podcasts:", dataResponse.error ?? "")
             }
             guard let data = dataResponse.data else {return}
-//            let dummy = String(data: data, encoding: .utf8)
-//            print(dummy ?? "")
+            let dummy = String(data: data, encoding: .utf8)
+            print(dummy ?? "")
             
             do{
                 let searchResults = try JSONDecoder().decode(SearchResults.self, from: data)
                 completiopnHandler(searchResults)
-            }catch{
+            } catch {
                 print(error)
             }
         }
